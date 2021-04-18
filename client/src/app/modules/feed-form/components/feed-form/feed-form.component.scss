@@ -1,0 +1,17 @@
+@import '../../../../../colors.scss';
+
+.form-control.ng-touched.ng-dirty.ng-invalid, .form-control.is-invalid {
+  border-left: 5px solid $color-error;
+}
+
+.form-control.ng-touched.ng-dirty.ng-valid {
+  border-left: 5px solid $color-success;
+}
+
+.required-asterisk {
+  color: $color-error;
+  
+  &:before {
+    content: "*";
+  }
+}
