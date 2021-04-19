@@ -4,7 +4,7 @@
   "description": "A crowdsourcing Web Application intending to understand Duck's Feeding Patterns around the world",
   "main": "index.js",
   "scripts": {
-    "start": "cd client && npm run build && cd ../server && npm start"
+    "start": "cd client && npm i && npm run build && cd ../server && npm i && npm start"
   },
   "repository": {
     "type": "git",
