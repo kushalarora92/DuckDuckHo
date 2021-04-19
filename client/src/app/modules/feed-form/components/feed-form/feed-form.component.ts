@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { FeedService } from '../../services/feed/feed.service';
+import { IFeedDetails } from '../../models/IFeedDetails';
+
 @Component({
   selector: 'app-feed-form',
   templateUrl: './feed-form.component.html',
@@ -9,19 +12,22 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class FeedFormComponent implements OnInit {
 
   feedForm: FormGroup;
-  submitted = false;
+  submitted: Boolean = false;
+  isLoading: Boolean = false;
+  isError: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
+    private feedService: FeedService,
   ) {}
 
   ngOnInit(): void {
     this.feedForm = this.formBuilder.group({
-      feedTime: ['', [Validators.required]],
-      feedFood: ['', Validators.required],
+      fedAt: ['', [Validators.required]],
+      foodItems: ['', Validators.required],
       ducksQty: ['', Validators.required],
-      feedFoodUsed: ['', Validators.required],
-      feedAddress: this.formBuilder.group({
+      totalFoodUsed: ['', Validators.required],
+      address: this.formBuilder.group({
         addressLine1: ['', Validators.required],
         addressLine2: ['', Validators.required],
         landmark: ['', Validators.required],
@@ -35,7 +41,7 @@ export class FeedFormComponent implements OnInit {
 
   get f() { return this.feedForm.controls; }
 
-  onSubmitClick() {
+  async onSubmitClick() {
     this.submitted = true;
 
     // stop here if form is invalid; Validations should show up now on screen
@@ -43,13 +49,17 @@ export class FeedFormComponent implements OnInit {
       return;
     }
 
-    // #TODO handle loader & error at interceptor level
+    const feedRecord: IFeedDetails = { ...this.feedForm.value, ...{ foodItems: [ this.feedForm.value.foodItems ]} };
 
-    console.log(this.feedForm.value);
-    // http call here
-
-
-
+    try {
+      this.isLoading = true;
+      const response = await this.feedService.submit(feedRecord);
+      this.feedForm.reset();
+      this.submitted = false;
+    } catch (e) {
+      this.isLoading = false;
+      this.isError = true; // #TODO handle error & success message display in view;≥
+    }
   }
 
 }

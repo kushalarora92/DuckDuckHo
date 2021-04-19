@@ -15,7 +15,9 @@ module.exports = class BaseController {
   async executeAndHandleErrors() {
     try {
       const data = await this.execute();
-      this.response.status(200).json(data);
+      const code = 200;
+      const response = { data, code };
+      this.response.status(code).json(response);
     } catch (err) {
       this.errorHandler(err, this.request, this.response);
     }

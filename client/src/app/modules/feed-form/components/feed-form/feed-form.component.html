@@ -3,24 +3,24 @@
 
   <form class="feed-form" [formGroup]="feedForm">
     <div class="form-group">
-      <label for="feedTime">
+      <label for="fedAt">
         What <strong>time</strong> the ducks are fed ?
         <span class="required-asterisk"></span>
       </label>
-      <input type="datetime-local" class="form-control" formControlName="feedTime" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && f.feedTime.errors }" />
-      <div *ngIf="submitted && f.feedTime.errors" class="invalid-feedback">
-        <div *ngIf="f.feedTime.errors.required">This field is required</div>
+      <input type="datetime-local" class="form-control" formControlName="fedAt" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && f.fedAt.errors }" />
+      <div *ngIf="submitted && f.fedAt.errors" class="invalid-feedback">
+        <div *ngIf="f.fedAt.errors.required">This field is required</div>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="feedFood">
+      <label for="foodItems">
         What <strong>food</strong> the ducks are fed ?
         <span class="required-asterisk"></span>
       </label>
-      <input type="text" class="form-control" formControlName="feedFood" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && f.feedFood.errors }" />
-      <div *ngIf="submitted && f.feedFood.errors" class="invalid-feedback">
-        <div *ngIf="f.feedFood.errors.required">This field is required</div>
+      <input type="text" class="form-control" formControlName="foodItems" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && f.foodItems.errors }" />
+      <div *ngIf="submitted && f.foodItems.errors" class="invalid-feedback">
+        <div *ngIf="f.foodItems.errors.required">This field is required</div>
       </div>
     </div>
     
@@ -36,17 +36,17 @@
     </div>
 
     <div class="form-group">
-      <label for="feedFoodUsed">
+      <label for="totalFoodUsed">
         <strong>How much food</strong> the ducks are fed (in Grams) ?
         <span class="required-asterisk"></span>
       </label>
-      <input type="number" class="form-control" formControlName="feedFoodUsed" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && f.feedFoodUsed.errors }" />
-      <div *ngIf="submitted && f.feedFoodUsed.errors" class="invalid-feedback">
-        <div *ngIf="f.feedFoodUsed.errors.required">This field is required</div>
+      <input type="number" class="form-control" formControlName="totalFoodUsed" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && f.totalFoodUsed.errors }" />
+      <div *ngIf="submitted && f.totalFoodUsed.errors" class="invalid-feedback">
+        <div *ngIf="f.totalFoodUsed.errors.required">This field is required</div>
       </div>
     </div>
 
-    <div class="form-group" formGroupName="feedAddress">
+    <div class="form-group" formGroupName="address">
       <div><strong>Where</strong> the ducks are fed ?</div>
 
       <div class="form-row">
@@ -55,9 +55,9 @@
             Address Line 1
             <span class="required-asterisk"></span>
           </label>
-          <input type="text" class="form-control" formControlName="addressLine1" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('feedAddress.addressLine1').errors }" />
-          <div *ngIf="submitted && feedForm.get('feedAddress.addressLine1').errors" class="invalid-feedback">
-            <div *ngIf="feedForm.get('feedAddress.addressLine1').errors.required">This field is required</div>
+          <input type="text" class="form-control" formControlName="addressLine1" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('address.addressLine1').errors }" />
+          <div *ngIf="submitted && feedForm.get('address.addressLine1').errors" class="invalid-feedback">
+            <div *ngIf="feedForm.get('address.addressLine1').errors.required">This field is required</div>
           </div>
         </div>
 
@@ -66,9 +66,9 @@
             Address Line 2
             <span class="required-asterisk"></span>
           </label>
-          <input type="text" class="form-control" formControlName="addressLine2" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('feedAddress.addressLine2').errors }" />
-          <div *ngIf="submitted && feedForm.get('feedAddress.addressLine2').errors" class="invalid-feedback">
-            <div *ngIf="feedForm.get('feedAddress.addressLine2').errors.required">This field is required</div>
+          <input type="text" class="form-control" formControlName="addressLine2" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('address.addressLine2').errors }" />
+          <div *ngIf="submitted && feedForm.get('address.addressLine2').errors" class="invalid-feedback">
+            <div *ngIf="feedForm.get('address.addressLine2').errors.required">This field is required</div>
           </div>
         </div>
       </div>
@@ -79,9 +79,9 @@
             Landmark
             <span class="required-asterisk"></span>
           </label>
-          <input type="text" class="form-control" formControlName="landmark" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('feedAddress.landmark').errors }" />
-          <div *ngIf="submitted && feedForm.get('feedAddress.landmark').errors" class="invalid-feedback">
-            <div *ngIf="feedForm.get('feedAddress.landmark').errors.required">This field is required</div>
+          <input type="text" class="form-control" formControlName="landmark" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('address.landmark').errors }" />
+          <div *ngIf="submitted && feedForm.get('address.landmark').errors" class="invalid-feedback">
+            <div *ngIf="feedForm.get('address.landmark').errors.required">This field is required</div>
           </div>
         </div>
 
@@ -90,9 +90,9 @@
             City
             <span class="required-asterisk"></span>
           </label>
-          <input type="text" class="form-control" formControlName="city" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('feedAddress.city').errors }" />
-          <div *ngIf="submitted && feedForm.get('feedAddress.city').errors" class="invalid-feedback">
-            <div *ngIf="feedForm.get('feedAddress.city').errors.required">This field is required</div>
+          <input type="text" class="form-control" formControlName="city" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('address.city').errors }" />
+          <div *ngIf="submitted && feedForm.get('address.city').errors" class="invalid-feedback">
+            <div *ngIf="feedForm.get('address.city').errors.required">This field is required</div>
           </div>
         </div>
       </div>
@@ -103,9 +103,9 @@
             State
             <span class="required-asterisk"></span>
           </label>
-          <input type="text" class="form-control" formControlName="state" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('feedAddress.state').errors }" />
-          <div *ngIf="submitted && feedForm.get('feedAddress.state').errors" class="invalid-feedback">
-            <div *ngIf="feedForm.get('feedAddress.state').errors.required">This field is required</div>
+          <input type="text" class="form-control" formControlName="state" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('address.state').errors }" />
+          <div *ngIf="submitted && feedForm.get('address.state').errors" class="invalid-feedback">
+            <div *ngIf="feedForm.get('address.state').errors.required">This field is required</div>
           </div>
         </div>
 
@@ -114,9 +114,9 @@
             Country
             <span class="required-asterisk"></span>
           </label>
-          <input type="text" class="form-control" formControlName="country" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('feedAddress.country').errors }" />
-          <div *ngIf="submitted && feedForm.get('feedAddress.country').errors" class="invalid-feedback">
-            <div *ngIf="feedForm.get('feedAddress.country').errors.required">This field is required</div>
+          <input type="text" class="form-control" formControlName="country" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('address.country').errors }" />
+          <div *ngIf="submitted && feedForm.get('address.country').errors" class="invalid-feedback">
+            <div *ngIf="feedForm.get('address.country').errors.required">This field is required</div>
           </div>
         </div>
       </div>
@@ -127,16 +127,19 @@
             Pincode
             <span class="required-asterisk"></span>
           </label>
-          <input type="number" class="form-control" formControlName="pincode" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('feedAddress.pincode').errors }" />
-          <div *ngIf="submitted && feedForm.get('feedAddress.pincode').errors" class="invalid-feedback">
-            <div *ngIf="feedForm.get('feedAddress.pincode').errors.required">This field is required</div>
+          <input type="number" class="form-control" formControlName="pincode" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && feedForm.get('address.pincode').errors }" />
+          <div *ngIf="submitted && feedForm.get('address.pincode').errors" class="invalid-feedback">
+            <div *ngIf="feedForm.get('address.pincode').errors.required">This field is required</div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="w-100 text-center mt-5">
-      <a class="btn btn-lg btn-primary d-block d-md-inline-block" (click)="onSubmitClick()">Submit</a>
+      <a class="btn btn-lg btn-primary d-block d-md-inline-block" [ngClass]="{ disabled: isLoading }" (click)="onSubmitClick()">
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-1"></span>
+        Submit
+      </a>
     </div>
   </form>
 </div>
