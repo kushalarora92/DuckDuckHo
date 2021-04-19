@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     indent: ['error', 2],
     'max-len': ['error', 180],
+    'class-methods-use-this': 0,
   },
 };
