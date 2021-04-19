@@ -1,7 +1,8 @@
 const compression = require('compression');
 const bodyParser = require('body-parser');
 const express = require('express');
-const log = require('bunyan').createLogger({ name: 'app,js__' });
+const morgan = require('morgan'); // trace every request hit
+const logger = require('bunyan').createLogger({ name: 'app,js__' });
 
 const config = require('../config/config.json'); // eslint-disable-line -- To be used;
 const errorHandler = require('./helper/error-handler');
@@ -9,8 +10,12 @@ const errorHandler = require('./helper/error-handler');
 const app = express();
 
 app.use(compression());
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// connect mongo
+require('./helper/mongo-connection-handler');
 
 // host web app static
 app.use('', express.static('../client/dist/duckduckho'));
@@ -27,7 +32,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use((err, req, res) => {
-  log.error(err);
+  logger.error(err);
   res.status(500).send('Something broke:::::1');
 });
 

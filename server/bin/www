@@ -2,13 +2,13 @@ const dotenv = require('dotenv');
 const cluster = require('cluster');
 const path = require('path');
 const http = require('http');
-const log = require('bunyan').createLogger({ name: 'www_' });
+const logger = require('bunyan').createLogger({ name: 'www_' });
 const numWorkers = require('os').cpus().length;
 
 const app = require('../app');
 
 dotenv.config({
-  path: path.resolve(__dirname, '../../config/properties.env'),
+  path: path.resolve(__dirname, '../../config/.env'),
 });
 
 /**
@@ -52,11 +52,11 @@ function createServer() {
     // handle specific listen errors with friendly messages
     switch (error.code) {
     case 'EACCES':
-      log.error(`${LOG_TAG} ${bind} requires elevated privileges`);
+      logger.error(`${LOG_TAG} ${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      log.error(`${LOG_TAG} ${bind} is already in use`);
+      logger.error(`${LOG_TAG} ${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -72,7 +72,7 @@ function createServer() {
     const bind = typeof addr === 'string'
       ? `pipe ${addr}`
       : `port ${addr.port}`;
-    log.info(`Listening on ${bind}`);
+    logger.info(`Listening on ${bind}`);
   }
 
   /**
@@ -93,20 +93,20 @@ function setupCluster() {
   }
 
   const LOG_TAG = 'setupCluster';
-  log.info(`ENVIRONMENT: ${app.get('env')}`);
-  log.info(`${LOG_TAG} Master cluster setting up ${numWorkers} workers..`);
+  logger.info(`ENVIRONMENT: ${app.get('env')}`);
+  logger.info(`${LOG_TAG} Master cluster setting up ${numWorkers} workers..`);
 
   for (let i = 0; i < numWorkers; i += 1) {
     cluster.fork();
   }
 
   cluster.on('online', (worker) => {
-    log.info(`${LOG_TAG} Worker PID: ${worker.process.pid} is online`);
+    logger.info(`${LOG_TAG} Worker PID: ${worker.process.pid} is online`);
   });
 
   cluster.on('exit', (worker, code, signal) => {
-    log.info(`${LOG_TAG} Worker ${worker.process.pid} died with code ${code}, and signal ${signal}`);
-    log.info(`${LOG_TAG} Starting a new worker`);
+    logger.info(`${LOG_TAG} Worker ${worker.process.pid} died with code ${code}, and signal ${signal}`);
+    logger.info(`${LOG_TAG} Starting a new worker`);
     cluster.fork();
   });
 }
