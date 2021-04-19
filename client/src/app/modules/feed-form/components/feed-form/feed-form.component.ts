@@ -14,7 +14,8 @@ export class FeedFormComponent implements OnInit {
   feedForm: FormGroup;
   submitted: Boolean = false;
   isLoading: Boolean = false;
-  isError: Boolean = false;
+  responseSuccess: String = '';
+  responseError: String = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,11 +55,19 @@ export class FeedFormComponent implements OnInit {
     try {
       this.isLoading = true;
       const response = await this.feedService.submit(feedRecord);
+      this.isLoading = false;
       this.feedForm.reset();
       this.submitted = false;
+      this.responseSuccess = 'Record Submission Success';
+      window.setTimeout(() => {
+        this.responseSuccess = '';
+      }, 5000);
     } catch (e) {
       this.isLoading = false;
-      this.isError = true; // #TODO handle error & success message display in view;≥
+      this.responseError = 'Record Submission Failed';
+      window.setTimeout(() => {
+        this.responseError = '';
+      }, 5000);
     }
   }
 
