@@ -24,6 +24,6 @@ app.get('/health', (req, res) => {
 
 app.use('/api', require('./routes'));
 
-app.use('', express.static('../client/dist/duckduckho')); // host web app static
+app.use('', express.static('public/duckduckho')); // host web app static
 
 module.exports = app;
