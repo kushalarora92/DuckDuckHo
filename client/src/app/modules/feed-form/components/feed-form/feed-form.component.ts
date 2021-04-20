@@ -31,7 +31,7 @@ export class FeedFormComponent implements OnInit {
       foodItems: ['', Validators.required],
       ducksQty: ['', Validators.required],
       totalFoodUsed: ['', Validators.required],
-      isTaskRecurring: [false],
+      isTaskRecurring: false,
       address: this.formBuilder.group({
         addressLine1: ['', Validators.required],
         addressLine2: ['', Validators.required],

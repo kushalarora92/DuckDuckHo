@@ -35,7 +35,6 @@ mongoose.connection.on('connected', async () => {
     const startHour = startTime.getUTCHours() - 1;
     const endHour = startTime.getUTCHours();
     const recurringTaskRepo = new RecurringTaskRepository();
-    const userRepo = new UserRepository();
     const feedDetailsRepo = new FeedDetailsRepository();
 
     logger.info(`Starting to execute CRON for >=${startHour} and <${endHour}`);
@@ -78,25 +77,15 @@ mongoose.connection.on('connected', async () => {
 
     logger.info(`Found ${recurringTasks.length} tasks for the interval. Executing...`);
 
-    const cronUser = await userRepo.findOne({ _id: +process.env.cronUserId });
-    if (!cronUser) {
-      await userRepo.create({
-        _id: process.env.cronUserId,
-        email: process.env.cronUserEmail,
-        password: process.env.cronUserPassword,
-      });
-    }
-
     await Promise.all(recurringTasks.map((task) => {
       if (!task || !task.feedDetails) {
         logger.error(`No feedDetails found for task ${task._id}`);
         return null;
       }
 
-      const feedDetails = {
-        ...task.feedDetails,
-        ...{ userId: +process.env.cronUserId, fedAt: startTime },
-      };
+      const newFedAt = new Date(task.fedAt);
+      newFedAt.setDate(startTime.getUTCDate());
+      const feedDetails = { ...task.feedDetails, ...{ fetAd: newFedAt } };
       delete feedDetails._id;
 
       return feedDetailsRepo.add(feedDetails);
