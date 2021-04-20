@@ -139,10 +139,17 @@
       </div>
     </div>
 
-    <div class="w-100 text-center mt-5">
+    <div class="w-100 text-center mt-3">
+      <label for="isTaskRecurring" class="btn" (click)="onIsTaskRecurringClick()">
+        Check this to make this task <strong>Recurring</strong> on a daily basis ?
+      </label>
+      <input type="checkbox" class="ml-3" formControlName="isTaskRecurring" />
+    </div>
+
+    <div class="w-100 text-center">
       <a class="btn btn-lg btn-primary d-block d-md-inline-block" [ngClass]="{ disabled: isLoading }" (click)="onSubmitClick()">
         <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-1"></span>
-        Submit
+        Submit Form
       </a>
 
       <div *ngIf="responseError" class="cust-toast d-inline alert alert-danger mt-3 mb-0 ml-2">{{responseError}}</div>

@@ -21,4 +21,14 @@ module.exports = class BaseRepository {
     const result = await this.model().findOne(predicate, projection);
     return result;
   }
+
+  async find(predicate = {}, projection = null) {
+    const result = await this.model().find(predicate, projection);
+    return result;
+  }
+
+  async aggregate(pipeline) {
+    const result = await this.model().aggregate(pipeline);
+    return result;
+  }
 };

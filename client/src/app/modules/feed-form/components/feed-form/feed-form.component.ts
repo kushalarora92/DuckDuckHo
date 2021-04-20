@@ -31,6 +31,7 @@ export class FeedFormComponent implements OnInit {
       foodItems: ['', Validators.required],
       ducksQty: ['', Validators.required],
       totalFoodUsed: ['', Validators.required],
+      isTaskRecurring: [false],
       address: this.formBuilder.group({
         addressLine1: ['', Validators.required],
         addressLine2: ['', Validators.required],
@@ -44,6 +45,12 @@ export class FeedFormComponent implements OnInit {
   }
 
   get f() { return this.feedForm.controls; }
+
+  onIsTaskRecurringClick() {
+    this.feedForm.patchValue({
+      isTaskRecurring: !this.feedForm.value.isTaskRecurring,
+    })
+  }
 
   async onSubmitClick() {
     this.submitted = true;

@@ -25,6 +25,10 @@ const FeedDetailsModel = mongoose.Schema({
     required: true,
     min: 1,
   },
+  isTaskRecurring: {
+    type: Boolean,
+    default: false,
+  },
   address: {
     addressLine1: { type: String, required: true },
     addressLine2: { type: String, required: true },
@@ -33,7 +37,6 @@ const FeedDetailsModel = mongoose.Schema({
     state: { type: String, required: true },
     country: { type: String, required: true },
     pincode: { type: Number, required: true },
-
   },
 }, { _id: false, usePushEach: true, timestamps: true });
 
@@ -42,5 +45,5 @@ FeedDetailsModel.plugin(IdentifierGenerator.plugin, {
   startAt: 1000,
 });
 
-// FeedDetailsModel.index({ user: 1, productCategory: 1, isFulfilled: 1 });
+// FeedDetailsModel.index({});
 module.exports = mongoose.model('feedDetails', FeedDetailsModel);
