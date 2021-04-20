@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cd server && npm start",
+    "buildWithAngular": "cd client && npm run build:prod && cd ../server && npm start",
     "postinstall": "cd server && npm i && cd ../"
   },
   "repository": {
