@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: 'form', loadChildren: () => import('./modules/feed-form/feed-form.module').then(m => m.FeedFormModule)},
-  { path: '', redirectTo: 'form', pathMatch: 'full' }
+  { path: '', loadChildren: () => import('./modules/feed-form/feed-form.module').then(m => m.FeedFormModule)},
+  { path: '', redirectTo: '', pathMatch: 'prefix' }
 ];
 
 @NgModule({

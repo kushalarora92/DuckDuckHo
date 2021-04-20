@@ -12,7 +12,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" 
-          routerLink="/form"
+          routerLink="/"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
             Form
@@ -25,7 +25,63 @@
         <a class="nav-link" href="#">My Account</a>
       </li>
     </ul>
+
+    <span class="navbar-text btn pl-0" (click)="onLoginDetailsClick()">
+      {{loginDetails}} <span aria-hidden="true" >&#934;</span>
+    </span>
   </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login / Register</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="loginForm">
+          <div class="form-group">
+            <label for="email">
+              <strong>Email</strong>
+              <span class="required-asterisk"></span>
+            </label>
+            <input type="text" class="form-control" formControlName="email" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">This field is required</div>
+              <div *ngIf="f.email.errors.email">Email is invalid</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">
+              <strong>Password</strong>
+              <span class="required-asterisk"></span>
+            </label>
+            <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-valid': submitted, 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">This field is required</div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" [ngClass]="{ disabled: isLoading }" (click)="onSubmitClick(0)">
+          <span *ngIf="isLoading && submitAction === 0" class="spinner-border spinner-border-sm mr-1"></span>
+          Register
+        </button>
+        <button type="button" class="btn btn-primary" [ngClass]="{ disabled: isLoading }" (click)="onSubmitClick(1)">
+          <span *ngIf="isLoading && submitAction === 1" class="spinner-border spinner-border-sm mr-1"></span>
+          Login
+        </button>
+      </div>
+      <div *ngIf="responseError" class="alert alert-danger">{{responseError}}</div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="responseSuccess" class="cust-toast alert alert-success">{{responseSuccess}}</div>
 
 <router-outlet></router-outlet>

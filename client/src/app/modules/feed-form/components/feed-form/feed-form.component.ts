@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { FeedService } from '../../services/feed/feed.service';
 import { IFeedDetails } from '../../models/IFeedDetails';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-feed-form',
@@ -20,6 +22,7 @@ export class FeedFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private feedService: FeedService,
+    private authenticationService: AuthenticationService,
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +56,11 @@ export class FeedFormComponent implements OnInit {
     const feedRecord: IFeedDetails = { ...this.feedForm.value, ...{ foodItems: [ this.feedForm.value.foodItems ]} };
 
     try {
+
+      if (!this.authenticationService.isLoggedIn) {
+        return await this.authenticationService.openLoginModal();
+      }
+
       this.isLoading = true;
       const response = await this.feedService.submit(feedRecord);
       this.isLoading = false;
