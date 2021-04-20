@@ -22,7 +22,7 @@ const RecurringTaskModel = mongoose.Schema({
   },
 }, { _id: false, usePushEach: true, timestamps: true });
 
-RecurringTaskModel.index({ userId: 1, recurrAt: 1 });
+RecurringTaskModel.index({ active: 1 });
 RecurringTaskModel.plugin(IdentifierGenerator.plugin, {
   model: 'recurringTask',
   startAt: 1000,

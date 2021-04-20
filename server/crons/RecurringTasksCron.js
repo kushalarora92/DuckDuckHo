@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const logger = require('bunyan').createLogger({ name: 'RecurringTasksCron.js__' });
 
 const RecurringTaskRepository = require('../repositories/recurring-task.repo');
-const UserRepository = require('../repositories/user.repo');
 const FeedDetailsRepository = require('../repositories/feed-details.repo');
 
 mongoose.Promise = global.Promise;
