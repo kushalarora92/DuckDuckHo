@@ -16,4 +16,9 @@ module.exports = class BaseRepository {
     const result = await this.model().create(data);
     return result;
   }
+
+  async findOne(predicate = {}, projection = null) {
+    const result = await this.model().findOne(predicate, projection);
+    return result;
+  }
 };

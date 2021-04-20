@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const HttpError = require('standard-http-error');
 
 const BaseController = require('./base.controller');
 const FeedDetailsRepository = require('../repositories/feed-details.repo');
@@ -11,6 +12,11 @@ module.exports = class AddFeedDetailsController extends BaseController {
   }
 
   async validate() {
+    const { authenticatedUser } = this.request;
+    if (!authenticatedUser || !authenticatedUser.active) {
+      throw new HttpError(401, 'Invalid User');
+    }
+
     const joiValidationFeedDetailsSchema = Joi.object({
       fedAt: Joi.date().required(),
       foodItems: Joi.array().items(Joi.string().required()).required(),
@@ -36,8 +42,9 @@ module.exports = class AddFeedDetailsController extends BaseController {
   async execute() {
     await this.validate();
 
-    const { body } = this.request;
-    const data = await this.feedDetailsRepository.add(body);
+    const { body, authenticatedUser } = this.request;
+    const updates = { userId: authenticatedUser._id, ...body };
+    const data = await this.feedDetailsRepository.add(updates);
     return data;
   }
 };

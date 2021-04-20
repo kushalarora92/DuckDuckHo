@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const IdentifierGenerator = require('mongoose-plugin-autoinc');
 
-const feedDetailsSchema = mongoose.Schema({
+const FeedDetailsModel = mongoose.Schema({
+  userId: {
+    type: Number,
+    required: true,
+    ref: 'Users',
+  },
   fedAt: {
     type: Date,
     required: true,
@@ -31,10 +36,11 @@ const feedDetailsSchema = mongoose.Schema({
 
   },
 }, { _id: false, usePushEach: true, timestamps: true });
-feedDetailsSchema.plugin(IdentifierGenerator.plugin, {
+
+FeedDetailsModel.plugin(IdentifierGenerator.plugin, {
   model: 'feedDetails',
   startAt: 1000,
 });
 
-// feedDetailsSchema.index({ user: 1, productCategory: 1, isFulfilled: 1 });
-module.exports = mongoose.model('feedDetails', feedDetailsSchema);
+// FeedDetailsModel.index({ user: 1, productCategory: 1, isFulfilled: 1 });
+module.exports = mongoose.model('feedDetails', FeedDetailsModel);
